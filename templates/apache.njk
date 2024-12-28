@@ -1,0 +1,22 @@
+<VirtualHost {{ domainName }}:80>
+        ServerAdmin admin@stuckcog.com
+        Servername www.{{ domainName }}
+        ServerAlias {{ domainName }}
+
+        DirectoryIndex index.php
+        DocumentRoot {{ vhostDirectory }}
+
+        LogLevel debug
+        ErrorLog ${APACHE_LOG_DIR}/error.{{ domainName }}.log
+        CustomLog ${APACHE_LOG_DIR}/access.{{ domainName }}.log combined
+
+        <Directory {{ vhostDirectory }}>
+                Options FollowSymLinks
+                AllowOverride all
+        </Directory>
+
+RewriteEngine on
+RewriteCond %{SERVER_NAME} =www.{{ domainName }} [OR]
+RewriteCond %{SERVER_NAME} ={{ domainName }}
+RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
