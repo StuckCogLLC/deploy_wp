@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*-coding: utf-8 -*-
 
 # imports
 from ast import Num
@@ -14,12 +15,14 @@ from setup_user import build_user
 from setup_db import create_wpdbuser
 
 
-#vars
-##get inputs
+# vars
+## get inputs
+### domainName = 'example.com'
 domainName = input('FQDN: ')
-###domainName = 'example.com'
+### username = 'example'
+### this creates both system and wp username
 username = input('Username: ')
-###username = 'example'
+###pass for the local mysql/mariadb instance
 ldbpass = getpass.getpass(prompt='Local DB pass: ')
 # vars
 vhostDirectory = os.path.join('/var/www', username, domainName, 'public')
