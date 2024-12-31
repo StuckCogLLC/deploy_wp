@@ -8,6 +8,11 @@ import mariadb
 
 #create and grant user
 def create_grant(cur,dbuser,dbpass,dbname):
+    """Grant permissions to the database
+
+    This will grant permissions to the database that gets created for
+    the WordPress install.
+    """
     try:
         print("Granting permissions to database")
         cur.execute(f"grant all privileges on {dbname}.* to {dbuser}@localhost identified by '{dbpass}';")
@@ -16,6 +21,10 @@ def create_grant(cur,dbuser,dbpass,dbname):
 
 #create database (wp core install expects this)
 def create_database(cur,dbname):
+    """Creates the database
+    
+    This will create the database for the WordPress install
+    """
     try:
         print("creating wp database")
         cur.execute(f"create database {dbname}")
@@ -23,6 +32,11 @@ def create_database(cur,dbname):
         print(f"Error creating: {dbname}")
 
 def create_wpdbuser(dbuser,dbpass,dbname,ldbpass):
+    """Creates a DB user
+    
+    This creates the user that WordPress will use when accessing the
+    database.
+    """
     try: 
         print("Connecting to Database")
         conn = mariadb.connect(
