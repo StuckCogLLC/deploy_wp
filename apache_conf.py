@@ -14,16 +14,24 @@
 from pickle import TRUE
 from jinja2 import Environment, FileSystemLoader
 import os.path
-import subprocess #!!!!! you need to build out the sub process for enabling the site.
+import subprocess
 
 ## create apache2 conf file for the domain
 ## and place in /etc/apache2/sites-available
 ## folder.
 
 def apache2_conf_creation(domainName, vhostDirectory):
-    # create apache conf file
+    """Create Apache2 configuration file for new domain
+    
+    Uses jinja2 templating to create a configuration file for
+    apache2. This file called apache_conf.py and is located in the
+    folder ~/templates.  
+    """
+    # construct apache conf file and path
     conffile = os.path.join("/etc/apache2/sites-available/", domainName + ".conf")
+    # bool if the path exist
     boolconffile = os.path.exists(conffile)
+    # create or replace apache conf
     if boolconffile:
         aconf = open(conffile, "w")
         print(domainName + ".conf existed and was overwritten.")
@@ -48,6 +56,13 @@ def apache2_conf_creation(domainName, vhostDirectory):
     os.makedirs(vhostDirectory, exist_ok=True)
 
 def enable_site(domainName):
+    """Enable the newly created site
+    
+    Uses the a2ensite to enable the new created domain. This also
+    reloads the apache configuration which will bring up the new
+    site.
+    """
+    # enable the domain
     try:
         print(f"Enabling site")
         subprocess.run(
@@ -59,6 +74,7 @@ def enable_site(domainName):
         )
     except subprocess.CalledProcessError as e:
         print(f"Error: {e}")
+    # reload apache
     try:
         print(f"Reloading Apache")
         subprocess.run(

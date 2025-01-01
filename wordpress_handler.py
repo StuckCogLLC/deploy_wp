@@ -9,6 +9,10 @@ import os
 
 #download wordpress
 def download(vhostDirectory):
+    """Downloads WordPress
+    
+    This downloads the latest copy of WorkPress
+    """
     print(download)
     os.chdir(vhostDirectory)
     try:
@@ -26,6 +30,11 @@ def download(vhostDirectory):
 
 #create wp-config.php
 def create_config(vhostDirectory,dbname,dbuser,dbpass):
+    """Creates WordPress Config
+    
+    This creates a configuration for WordPress based of information
+    generated from main.py
+    """
     print(create_config)
     os.chdir(vhostDirectory)
     try:
@@ -47,6 +56,10 @@ def create_config(vhostDirectory,dbname,dbuser,dbpass):
 
 #install wordpress
 def install_wordpress(vhostDirectory,domainName,username,wppass):
+    """Installs WordPress
+    
+    Installs WordPress to the system in the vhost directory
+    """
     os.chdir(vhostDirectory)
     url = "--url="+domainName
     title = "--title="+domainName
@@ -73,6 +86,10 @@ def install_wordpress(vhostDirectory,domainName,username,wppass):
 
 #run
 def deploy_wordpress(vhostDirectory,dbname,dbuser,dbpass,domainName,username,wppass):
+    """Deploy instance
+    
+    Executes the depolment of WordPress on the system.
+    """
     download(vhostDirectory)
     create_config(vhostDirectory,dbname,dbuser,dbpass)
     install_wordpress(vhostDirectory,domainName,username,wppass)

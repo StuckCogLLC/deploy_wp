@@ -5,6 +5,11 @@ import crypt
 import subprocess
 
 def build_user(username, password):
+    """Creates User
+    
+    This creates a local system account based on the user information
+    supplied when running the application.
+    """
     # input
     
     homedir = "/var/www/" + username
