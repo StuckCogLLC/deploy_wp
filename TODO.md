@@ -26,11 +26,9 @@ code:
       # END WordPress
 ```
 
-## wp-config.php file
-create template for wp-config.php file
+## file permissions
+Need to set file permissions on /var/www/<username>/<dns>/public directory. This will allow for WP to have automatic updates, install themes and plugins without the need for FTP creds. Ownership needs to be granted to the apache2 service account (www-data) and permission set to 0775.
 
-## mariadb
-setup database for Wordpress.
-- create database
-- create database user
-- setup wordpress tables
+commands:
+chown -R www-data:www-data /var/www/<username>/<dns>/public
+chmod -r 0775 /var/www/<username>/<dns>/public
